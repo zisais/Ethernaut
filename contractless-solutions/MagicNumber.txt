@@ -1,0 +1,20 @@
+runtime bytecode: 602a60805260206080f3
+    602a - push1 value 42
+    6080 - push1 slot 128
+    52 - mstore value 42 to slot 128
+    6020 - push1 size 32 bytes
+    6080 - push1 slot 128
+    f3 - return 32 bytes from slot 128
+
+initialization bytecode: 600a600c600039600a6000f3
+    600a - push1 size 10 bytes
+    600c - push1 slot 12
+    6000 - push1 slot 0
+    39 - codecopy 10 bytes from slot 12 to slot 0
+    600a - push1 size 10 bytes
+    6000 - push1 slot 0
+    f3 - return 10 bytes from slot0
+
+total bytecode: 600a600c600039600a6000f3602a60805260206080f3
+    await web3.eth.sendTransaction({from:player,data:bytecode})
+    contract.setSolver(deployedContractAddress)
