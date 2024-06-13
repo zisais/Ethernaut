@@ -29,7 +29,6 @@ contract GatekeeperOne {
 
 contract GatepasserOne {
     address instance;
-    bytes8 keySetup;
 
     constructor(address _instance) {
         instance = _instance;
