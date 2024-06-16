@@ -1,4 +1,4 @@
-// final swap only requires 45 input tokens, less than balance by that time
+# final swap only requires 45 input tokens, less than balance by that time
 
 await contract.approve(instance, 10000)
 let token1 = await contract.token1()

@@ -1,6 +1,6 @@
 functionSig = await web3.eth.abi.encodeFunctionSignature('proposeNewAdmin(address)')
 param = await web3.eth.abi.encodeParameter('address',player)
-data = append param onto functionSig without the '0x' from param
+# data = append param onto functionSig without the '0x' from param
     ex:
         functionSig = '0xa6376746'
         param = '0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266'

